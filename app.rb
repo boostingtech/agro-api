@@ -5,13 +5,12 @@ require 'sinatra/namespace'
 require 'mechanize'
 
     def get_arroba
-        arr = []
+        
         agent = Mechanize.new
         page = agent.get('https://cepea.esalq.usp.br/br/widgetproduto.js.php?id_indicador%5B%5D=2')
-        page.search('.maior').each do |p|
-            arr <<  p.text
-        end
-        return arr
+        page = page.search('.maior')
+        hash = {page[0].text => page[1].text}
+        return hash
     end
 
     namespace '/api/v1' do
